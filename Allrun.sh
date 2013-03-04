@@ -1,52 +1,15 @@
-#! /bin/sh
-#######################################################################
-### Set case parameters
-### user: User
-### jobn: The name of the output file in data directory
-### pnum: Project number for charging/allocation purposes
-### rund: Name of the run directory where data are placed
-### dirm: Location of the submit script and output directory
-### csrc: Directory containing code source
-### nodes: Number of nodes
-### cores: Number of MPI processes to start on each node; 12 cores/node on Janus
+#! /bin/bash
 
-user=ryki5239
-jobn=precursorABLNeutral
-pnum=UCB00000168
-rund=run1
-dirm=/lustre/janus_scratch/ryki5239/SOWFA/precursorABL/neutral
-csrc=/home/ryki5239/OpenFOAM/OpenFOAM-2.1.1/tutorialsSOWFA/precursorABL/neutral
-nodes=12
-cores=12
-
-#######################################################################
-
-#######################################################################
-### Setup run
-echo 'Setting up run'
-cd $dirm
-mkdir $rund
-rm -f -r $rund/*
-cp -r $csrc/* $rund
-
-. /curc/tools/utils/dkinit
-reuse Moab
-reuse Torque
-reuse .gcc-4.3.4
-reuse OpenFOAM-2.1.1
-
-#######################################################################
-
-#######################################################################
-### Execute code, either locally or using PBS
-echo 'Execute step'
-#PBS -N $jobn
+#PBS -n precursorABLNeutral
 #PBS -l walltime=24:00:00
 #PBS -l nodes=12:ppn=12
-#PBS -A $pnum
+#PBS -a UCB00000168
 #PBS -q janus-small
 #PBS -o out.out
 #PBS -e err.err
+
+nodes=12
+cores=12
 
 sed -i "s/numberOfSubdomains [0-9]*;/numberOfSubdomains\ $(($nodes*$cores));/" system/decomposeParDict
 
