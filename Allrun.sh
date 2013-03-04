@@ -42,7 +42,7 @@ reuse OpenFOAM-2.1.1
 echo 'Execute step'
 #PBS -N $jobn
 #PBS -l walltime=24:00:00
-#PBS -l nodes=$nodes:ppn=$cores:
+#PBS -l nodes=12:ppn=12
 #PBS -A $pnum
 #PBS -q janus-small
 #PBS -o out.out
