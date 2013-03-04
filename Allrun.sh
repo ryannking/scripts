@@ -32,6 +32,7 @@ cp -r $csrc/* $rund
 . /curc/tools/utils/dkinit
 reuse Moab
 reuse Torque
+reuse .gcc-4.3.4
 reuse OpenFOAM-2.1.1
 
 #######################################################################
